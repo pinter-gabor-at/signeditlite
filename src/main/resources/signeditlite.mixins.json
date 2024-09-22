@@ -7,7 +7,7 @@
   },
   "mixins": [
     "ServerPlayNetworkHandlerMixin",
-    "SharedConstantsMixin",
+    "StringHelperMixin",
     "UtilMixin"
   ],
   "client": [
