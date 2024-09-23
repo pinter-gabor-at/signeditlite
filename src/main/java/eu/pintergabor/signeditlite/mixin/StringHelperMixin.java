@@ -1,12 +1,13 @@
 package eu.pintergabor.signeditlite.mixin;
 
 import eu.pintergabor.signeditlite.config.ModConfig;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import net.minecraft.SharedConstants;
+import net.minecraft.util.StringHelper;
 import net.minecraft.util.Formatting;
 
 /**
@@ -17,8 +18,8 @@ import net.minecraft.util.Formatting;
  * <p>
  * LGPL-3 license
  */
-@Mixin(SharedConstants.class)
-public abstract class SharedConstantsMixin {
+@Mixin(StringHelper.class)
+public abstract class StringHelperMixin {
 	/**
 	 * Unfortunately the easiest way to keep '§' in sign texts is to enable it everywhere
 	 * <p>
