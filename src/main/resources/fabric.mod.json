@@ -12,7 +12,7 @@
     "sources": "https://gitlab.com/pintergabor/signeditlite"
   },
   "license": "MIT",
-  "icon": "icon.png",
+  "icon": "eu.pintergabor.signeditlite.icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -30,7 +30,7 @@
   ],
   "depends": {
     "fabricloader": ">=0.16.9",
-    "minecraft": "~1.21.2",
+    "minecraft": "~1.21.3",
     "java": ">=21",
     "fabric-api": "*"
   },
