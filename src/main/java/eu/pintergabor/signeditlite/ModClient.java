@@ -8,11 +8,9 @@ import net.fabricmc.api.Environment;
 
 @Environment(EnvType.CLIENT)
 public class ModClient implements ClientModInitializer {
-
 	@Override
 	public void onInitializeClient() {
 		// Screen handler
 		FormatButtonsHandler.init();
 	}
-
 }

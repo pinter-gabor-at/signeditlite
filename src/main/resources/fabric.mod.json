@@ -1,40 +1,41 @@
 {
-	"schemaVersion": 1,
-	"id": "signeditlite",
-	"version": "${version}",
-	"name": "Sign Edit Lite",
-	"description": "Add formatting options to signs.",
-	"authors": [
-		"Pintér Gábor <pinter.gabor@gmx.at>"
-	],
-	"contact": {
-		"homepage": "https://pintergabor.eu/en/minecraft/mods/signeditlite",
-		"sources": "https://gitlab.com/pintergabor/signeditlite"
-	},
-	"license": "MIT",
-	"icon": "icon.png",
-	"environment": "*",
-	"entrypoints": {
-		"main": [
-			"eu.pintergabor.signeditlite.Mod"
-		],
-		"client": [
-			"eu.pintergabor.signeditlite.ModClient"
-		],
-		"modmenu": [
-			"eu.pintergabor.signeditlite.config.ModMenu"
-		]
-	},
-	"mixins": [
-		"signeditlite.mixins.json"
-	],
-	"depends": {
-		"fabricloader": ">=0.15.0",
-		"minecraft": "~1.20.4",
-		"java": ">=17",
-		"fabric-api": "*"
-	},
-	"suggests": {
-		"modmenu": ">=8"
-	}
+  "schemaVersion": 1,
+  "id": "signeditlite",
+  "version": "${version}",
+  "name": "Sign Edit Lite",
+  "description": "Add formatting options to signs.",
+  "authors": [
+    "Pintér Gábor <pinter.gabor@gmx.at>"
+  ],
+  "contact": {
+    "homepage": "https://pintergabor.eu/en/minecraft/mods/signeditlite",
+    "sources": "https://gitlab.com/pintergabor/signeditlite"
+  },
+  "license": "MIT",
+  "icon": "icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "eu.pintergabor.signeditlite.Mod"
+    ],
+    "client": [
+      "eu.pintergabor.signeditlite.ModClient"
+    ],
+    "modmenu": [
+      "eu.pintergabor.signeditlite.config.ModMenu"
+    ]
+  },
+  "mixins": [
+    "eu.pintergabor.signeditlite.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.9",
+    "minecraft": "~1.20.5",
+    "java": ">=17",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "modmenu": ">=10",
+    "ironsigns": "*"
+  }
 }

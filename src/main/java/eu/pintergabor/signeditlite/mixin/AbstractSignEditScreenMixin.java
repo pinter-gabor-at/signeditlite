@@ -25,7 +25,7 @@ public abstract class AbstractSignEditScreenMixin {
 	/**
 	 * Insert '§' when 'Ctrl+[' is pressed
 	 * <p>
-	 * Undocumented extra feature for nerds.
+	 * Extra feature for nerds.
 	 */
 	@Inject(method = "keyPressed", at = @At("HEAD"), cancellable = true)
 	private void keyPessed(int keyCode, int scanCode, int modifiers, CallbackInfoReturnable<Boolean> cir) {
