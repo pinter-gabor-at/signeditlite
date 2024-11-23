@@ -30,12 +30,12 @@
   ],
   "depends": {
     "fabricloader": ">=0.16.9",
-    "minecraft": "~1.20.6",
-    "java": ">=17",
+    "minecraft": "~1.21",
+    "java": ">=21",
     "fabric-api": "*"
   },
   "suggests": {
-    "modmenu": ">=10",
+    "modmenu": ">=11",
     "ironsigns": "*"
   }
 }
