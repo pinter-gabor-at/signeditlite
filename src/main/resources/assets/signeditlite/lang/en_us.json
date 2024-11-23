@@ -1,7 +1,7 @@
 {
 	"text.autoconfig.signeditlite.title": "Sign Edit Lite Options",
 	"text.autoconfig.signeditlite.option.enableSignTextFormatting": "Enable Sign Text Formatting",
-	"text.autoconfig.signeditlite.option.enableSignTextFormatting.@Tooltip": "It has no effect on existing signs",
+	"text.autoconfig.signeditlite.option.enableSignTextFormatting.@Tooltip": "It has no effect on existing signs. Requires restart.",
 	"text.autoconfig.signeditlite.option.enableFormattingKey": "Enable inserting the formatting prefix by pressing Ctrl+[",
 	"text.autoconfig.signeditlite.option.enableFormattingKey.@Tooltip": "Only for nerds!!!"
 }
