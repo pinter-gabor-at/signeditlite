@@ -22,6 +22,7 @@ import net.minecraft.util.StringHelper;
  */
 @Mixin(StringHelper.class)
 public abstract class StringHelperMixin {
+
 	/**
 	 * Unfortunately the easiest way to keep '§' in sign texts is to enable it everywhere
 	 * <p>

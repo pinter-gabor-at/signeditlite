@@ -7,6 +7,7 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import org.jetbrains.annotations.ApiStatus;
 
+
 @ApiStatus.Internal
 @Config(name = "signeditlite")
 public class ModConfig implements ConfigData {
