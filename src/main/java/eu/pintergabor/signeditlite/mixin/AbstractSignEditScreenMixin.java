@@ -16,9 +16,11 @@ import net.minecraft.util.Formatting;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
+
 @Environment(EnvType.CLIENT)
 @Mixin(AbstractSignEditScreen.class)
 public abstract class AbstractSignEditScreenMixin {
+
 	@Shadow
 	private @Nullable SelectionManager selectionManager;
 

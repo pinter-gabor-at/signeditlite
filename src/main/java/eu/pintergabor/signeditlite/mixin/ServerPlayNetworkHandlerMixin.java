@@ -10,8 +10,10 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 
+
 @Mixin(ServerPlayNetworkHandler.class)
 public abstract class ServerPlayNetworkHandlerMixin {
+
 	@Redirect(method = "onUpdateSign",
 		at = @At(value = "INVOKE",
 			target = "Ljava/util/stream/Stream;map(Ljava/util/function/Function;)Ljava/util/stream/Stream;"))
