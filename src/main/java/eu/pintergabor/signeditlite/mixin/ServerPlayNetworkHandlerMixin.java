@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 
+
 @Mixin(ServerPlayNetworkHandler.class)
 public abstract class ServerPlayNetworkHandlerMixin {
 	@Redirect(method = "onUpdateSign",

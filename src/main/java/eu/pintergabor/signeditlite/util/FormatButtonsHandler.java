@@ -21,6 +21,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.fabric.api.client.screen.v1.Screens;
 
+
 @Environment(EnvType.CLIENT)
 public class FormatButtonsHandler {
 
@@ -74,6 +75,7 @@ public class FormatButtonsHandler {
 	 * Called after opening the screen
 	 * <p>
 	 * Add color and formatting buttons to the screen
+	 *
 	 * @param screen Edit screen
 	 */
 	private static void onScreenOpened(Screen screen) {
@@ -103,6 +105,7 @@ public class FormatButtonsHandler {
 
 	/**
 	 * Add color and style formatting button to screen
+	 *
 	 * @param es edit screen
 	 */
 	private static void addButtonsToScreen(AbstractSignEditScreen es) {
@@ -122,11 +125,12 @@ public class FormatButtonsHandler {
 
 	/**
 	 * Create a list of color buttons
-	 * @param screen Edit screen
+	 *
+	 * @param screen  Edit screen
 	 * @param formats List of formatting codes
 	 * @param xOffset Left X of the button field
 	 * @param yOffset Top Y of the button field
-	 * @param rows Number of rows
+	 * @param rows    Number of rows
 	 * @return The list
 	 */
 	@SuppressWarnings("SameParameterValue")
@@ -152,12 +156,13 @@ public class FormatButtonsHandler {
 
 	/**
 	 * Create one button
-	 * @param screen Edit screen
-	 * @param buttonX Left X of the button
-	 * @param buttonY Top Y of the button
-	 * @param buttonWidth Button width
+	 *
+	 * @param screen       Edit screen
+	 * @param buttonX      Left X of the button
+	 * @param buttonY      Top Y of the button
+	 * @param buttonWidth  Button width
 	 * @param buttonHeight Button height
-	 * @param formatting A formatting enum
+	 * @param formatting   A formatting enum
 	 * @return The button
 	 */
 	@SuppressWarnings("SameParameterValue")

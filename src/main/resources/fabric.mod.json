@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "signeditlite",
+  "id": "${mod_id}",
   "version": "${version}",
   "name": "Sign Edit Lite",
   "description": "Add formatting options to signs.",
@@ -29,13 +29,14 @@
     "eu.pintergabor.signeditlite.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.16.9",
-    "minecraft": "~1.21.4",
     "java": ">=21",
-    "fabric-api": "*"
+    "minecraft": "${minecraft_version}",
+    "fabricloader": "${loader_version}",
+    "fabric-api": "${fabric_version}",
+    "cloth-config": "${cloth_config_version}"
   },
   "suggests": {
-    "modmenu": ">=12",
+    "modmenu": "${modmenu_version}",
     "ironsigns": "*"
   }
 }

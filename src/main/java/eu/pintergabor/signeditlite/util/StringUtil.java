@@ -2,6 +2,7 @@ package eu.pintergabor.signeditlite.util;
 
 import net.minecraft.util.Formatting;
 
+
 /**
  * String manipulating utilities
  */
@@ -11,6 +12,7 @@ public class StringUtil {
 	 * Returns the {@code char} value at the specified index
 	 * <p>
 	 * Similar to {@link String#charAt(int)}, but it returns '\0', instead of raising an exception on error.
+	 *
 	 * @param index the index of the {@code char} value.
 	 * @return the {@code char} value at the specified index of the string, or '\0' if the {@code index} is negative or
 	 * not less than the length of the string.
@@ -23,6 +25,7 @@ public class StringUtil {
 	 * Move the {@code cursor} in the {@code string} by a {@code delta} amount.
 	 * <p>
 	 * Skip surrogate characters the same way as the original, and skip color and formatting codes.
+	 *
 	 * @param delta >=0
 	 * @return the new cursor position
 	 */
@@ -52,6 +55,7 @@ public class StringUtil {
 	 * Move the {@code cursor} in the {@code string} by a {@code delta} amount.
 	 * <p>
 	 * Skip surrogate characters the same way as the original, and skip color and formatting codes.
+	 *
 	 * @param delta >=0
 	 * @return the new cursor position
 	 */
@@ -80,6 +84,7 @@ public class StringUtil {
 	 * Move the {@code cursor} in the {@code string} by a {@code delta} amount.
 	 * <p>
 	 * Skip surrogate characters the same way as the original, and skip color and formatting codes.
+	 *
 	 * @param delta if 0<=delta then move forward else move backward
 	 * @return the new cursor position
 	 */
