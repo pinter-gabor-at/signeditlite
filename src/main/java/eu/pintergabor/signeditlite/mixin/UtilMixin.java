@@ -12,6 +12,7 @@ import net.minecraft.util.Util;
 
 @Mixin(Util.class)
 public abstract class UtilMixin {
+
 	/**
 	 * Rewrite {@code moveCursor} to work the same way as the original one, but skip formatting codes too.
 	 */
