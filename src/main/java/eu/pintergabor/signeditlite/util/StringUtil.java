@@ -2,15 +2,17 @@ package eu.pintergabor.signeditlite.util;
 
 import net.minecraft.util.Formatting;
 
+
 /**
  * String manipulating utilities
  */
 public class StringUtil {
 
 	/**
-	 * Returns the {@code char} value at the specified index
+	 * Returns the {@code char} value at the specified index.
 	 * <p>
 	 * Similar to {@link String#charAt(int)}, but it returns '\0', instead of raising an exception on error.
+	 *
 	 * @param index the index of the {@code char} value.
 	 * @return the {@code char} value at the specified index of the string, or '\0' if the {@code index} is negative or
 	 * not less than the length of the string.
@@ -23,8 +25,9 @@ public class StringUtil {
 	 * Move the {@code cursor} in the {@code string} by a {@code delta} amount.
 	 * <p>
 	 * Skip surrogate characters the same way as the original, and skip color and formatting codes.
-	 * @param delta >=0
-	 * @return the new cursor position
+	 *
+	 * @param delta >=0.
+	 * @return the new cursor position.
 	 */
 	public static int moveCursorForward(String string, int cursor, int delta) {
 		final int len = string.length();
@@ -33,14 +36,14 @@ public class StringUtil {
 			final char cc = charAt(string, cursor);
 			final char nc = charAt(string, cursor + 1);
 			if (Character.isHighSurrogate(cc) && Character.isLowSurrogate(nc)) {
-				// Two character long UTF8 sequences count as one
+				// Two character long UTF8 sequences count as one.
 				cursor += 2;
 				i++;
 			} else if (cc == Formatting.FORMATTING_CODE_PREFIX) {
-				// Two character long formatting sequences count as zero
+				// Two character long formatting sequences count as zero.
 				cursor += 2;
 			} else {
-				// Normal characters count as one
+				// Normal characters count as one.
 				cursor++;
 				i++;
 			}
@@ -52,8 +55,9 @@ public class StringUtil {
 	 * Move the {@code cursor} in the {@code string} by a {@code delta} amount.
 	 * <p>
 	 * Skip surrogate characters the same way as the original, and skip color and formatting codes.
-	 * @param delta >=0
-	 * @return the new cursor position
+	 *
+	 * @param delta >=0.
+	 * @return the new cursor position.
 	 */
 	public static int moveCursorBackward(String string, int cursor, int delta) {
 		int i = 0;
@@ -80,8 +84,9 @@ public class StringUtil {
 	 * Move the {@code cursor} in the {@code string} by a {@code delta} amount.
 	 * <p>
 	 * Skip surrogate characters the same way as the original, and skip color and formatting codes.
-	 * @param delta if 0<=delta then move forward else move backward
-	 * @return the new cursor position
+	 *
+	 * @param delta if 0<=delta then move forward else move backward.
+	 * @return the new cursor position.
 	 */
 	public static int moveCursor(String string, int cursor, int delta) {
 		// Global.LOGGER.info("\"{}\", cursor={}, delta={}", string, cursor, delta);
