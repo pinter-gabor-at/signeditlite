@@ -1,18 +1,22 @@
 package eu.pintergabor.signeditlite;
 
-import eu.pintergabor.signeditlite.util.FormatButtonsHandler;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.client.gui.ConfigurationScreen;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 
+/**
+ * Client side startup.
+ */
+@Mod(value = Global.MODID, dist = Dist.CLIENT)
+public final class ModClient {
 
-@Environment(EnvType.CLIENT)
-public class ModClient implements ClientModInitializer {
-
-	@Override
-	public void onInitializeClient() {
-		// Screen handler.
-		FormatButtonsHandler.init();
-	}
+    @SuppressWarnings("unused")
+    public ModClient(IEventBus modEventBus, ModContainer modContainer) {
+        // Config screen.
+        modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+    }
 }

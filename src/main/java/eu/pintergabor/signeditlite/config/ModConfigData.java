@@ -1,27 +1,32 @@
 package eu.pintergabor.signeditlite.config;
 
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.ConfigData;
-import me.shedaniel.autoconfig.annotation.Config;
-import me.shedaniel.autoconfig.annotation.ConfigEntry;
-import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
-import org.jetbrains.annotations.ApiStatus;
+import eu.pintergabor.signeditlite.Global;
+import net.neoforged.fml.event.config.ModConfigEvent;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 
-@ApiStatus.Internal
-@Config(name = "signeditlite")
-public class ModConfigData implements ConfigData {
-	@ConfigEntry.Gui.Tooltip
-	public boolean enableSignTextFormatting = true;
+public class ModConfigData {
+	// Builder.
+	private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
+	// Enable Sign Text Formatting.
+	private static final ModConfigSpec.BooleanValue ENABLE_SIGN_TEXT_FORMATTING = BUILDER
+		.translation(Global.modName("config.enableSignTextFormatting"))
+		.define("enableSignTextFormatting", true);
+	public static boolean enableSignTextFormatting;
+	// Enable Formatting Key.
+	private static final ModConfigSpec.BooleanValue ENABLE_FORMATTING_KEY = BUILDER
+		.translation(Global.modName("config.enableFormattingKey"))
+		.define("enableFormattingKey", false);
+	public static boolean enableFormattingKey;
+	// Build and prepare for registration.
+	public static final ModConfigSpec SPEC = BUILDER.build();
 
-	@ConfigEntry.Gui.Tooltip
-	public boolean enableFormattingKey = false;
-
-	public static void init() {
-		AutoConfig.register(ModConfigData.class, Toml4jConfigSerializer::new);
-	}
-
-	public static ModConfigData getInstance() {
-		return AutoConfig.getConfigHolder(ModConfigData.class).getConfig();
+	/**
+	 * Load parameters from TOML.
+	 */
+	@SuppressWarnings("unused")
+	public static void onLoad(final ModConfigEvent event) {
+		enableSignTextFormatting = ENABLE_SIGN_TEXT_FORMATTING.get();
+		enableFormattingKey = ENABLE_FORMATTING_KEY.get();
 	}
 }

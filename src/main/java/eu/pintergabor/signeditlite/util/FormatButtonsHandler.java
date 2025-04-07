@@ -4,23 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eu.pintergabor.signeditlite.config.ModConfigData;
+import eu.pintergabor.signeditlite.mixin.AbstractSignEditScreenAccessor;
 import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen;
 import net.minecraft.network.chat.Component;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
-import net.fabricmc.fabric.api.client.screen.v1.Screens;
 
-
-@Environment(EnvType.CLIENT)
 public class FormatButtonsHandler {
 
 	/**
@@ -144,23 +138,34 @@ public class FormatButtonsHandler {
 	}
 
 	/**
-	 * Add color and style formatting button to screen.
+	 * Add a list of buttons to the screen.
+	 *
+	 * @param es edit screen.
+	 */
+	public static void addButtonsToScreen(AbstractSignEditScreen es, List<Button> buttons) {
+		final AbstractSignEditScreenAccessor aes = (AbstractSignEditScreenAccessor) es;
+		for (Button button : buttons) {
+			aes.invokeAddRenderableWidget(button);
+		}
+	}
+
+	/**
+	 * Add color and style formatting buttons to the screen.
 	 *
 	 * @param es edit screen.
 	 */
 	private static void addButtonsToScreen(AbstractSignEditScreen es) {
 		// Color buttons, 4x4.
-		final var colorButtons = getFormatButtons(
+		final List<Button> colorButtons = getFormatButtons(
 			es, colorFormattings,
 			(es.width / 2) - 170, 70, 4);
 		// Style formatting buttons, 1x5.
-		final var modifierButtons = getFormatButtons(
+		final List<Button> modifierButtons = getFormatButtons(
 			es, modifierFormattings,
 			(es.width / 2) + 50, 70, modifierFormattings.length);
 		// Add them to the screen.
-		List<AbstractWidget> screenButtons = Screens.getButtons(es);
-		screenButtons.addAll(colorButtons);
-		screenButtons.addAll(modifierButtons);
+		addButtonsToScreen(es, colorButtons);
+		addButtonsToScreen(es, modifierButtons);
 	}
 
 	/**
@@ -168,28 +173,12 @@ public class FormatButtonsHandler {
 	 * <p>
 	 * Add color and formatting buttons to the screen.
 	 *
-	 * @param screen Edit screen.
+	 * @param es Edit screen.
 	 */
-	private static void onScreenOpened(Screen screen) {
-		// A quick check to see if it is a sign edit screen.
-		if (screen instanceof AbstractSignEditScreen es) {
-			// Check configuration and add buttons if enabled.
-			ModConfigData config = ModConfigData.getInstance();
-			if (config.enableSignTextFormatting) {
-				addButtonsToScreen(es);
-			}
-		}
-	}
-
-	/**
-	 * Register {@link #onScreenOpened(Screen)} callback after opening the screen.
-	 */
-	public static void init() {
-		// But only if text formatting is enabled.
-		if (ModConfigData.getInstance().enableSignTextFormatting) {
-			ScreenEvents.AFTER_INIT.register((client, screen, width, height) ->
-				onScreenOpened(screen)
-			);
+	public static void onScreenOpened(AbstractSignEditScreen es) {
+		// Check configuration and add buttons if enabled.
+		if (ModConfigData.enableSignTextFormatting) {
+			addButtonsToScreen(es);
 		}
 	}
 }

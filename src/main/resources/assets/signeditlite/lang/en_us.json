@@ -1,7 +1,9 @@
 {
-	"text.autoconfig.signeditlite.title": "Sign Edit Lite Options",
-	"text.autoconfig.signeditlite.option.enableSignTextFormatting": "Enable Sign Text Formatting",
-	"text.autoconfig.signeditlite.option.enableSignTextFormatting.@Tooltip": "It has no effect on existing signs. Requires restart.",
-	"text.autoconfig.signeditlite.option.enableFormattingKey": "Enable inserting the formatting prefix by pressing Ctrl+[",
-	"text.autoconfig.signeditlite.option.enableFormattingKey.@Tooltip": "Only for nerds!!!"
+  "signeditlite.configuration.title": "Sign Edit Lite Options",
+  "signeditlite.configuration.section.signeditlite.common.toml": "Sign Edit Lite Options",
+  "signeditlite.configuration.section.signeditlite.common.toml.title": "Sign Edit Lite Options",
+  "signeditlite:config.enableSignTextFormatting": "Sign Text Formatting",
+  "signeditlite:config.enableSignTextFormatting.tooltip": "Enable Sign Text Formatting.\nIt has no effect on existing signs.",
+  "signeditlite:config.enableFormattingKey": "Formatting Key",
+  "signeditlite:config.enableFormattingKey.tooltip": "Enable inserting the formatting prefix by pressing Ctrl+[.\nOnly for nerds!!!"
 }

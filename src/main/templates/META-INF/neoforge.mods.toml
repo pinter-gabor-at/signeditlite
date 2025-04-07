@@ -1,0 +1,34 @@
+# Mod loader.
+modLoader = "javafml"
+loaderVersion = "[6,)"
+
+# License.
+license = "MIT"
+
+# Mod parameters.
+[[mods]]
+modId = "${mod_id}"
+version = "${mod_version}"
+displayName = "Iron Signs"
+description = "More signs."
+authors = "Pintér Gábor <pinter.gabor@gmx.at>"
+displayURL = "https://pintergabor.eu/en/minecraft/mods/ironsigns/"
+logoFile = "eu.pintergabor.ironsigns.icon.png"
+
+# Mixins.
+[[mixins]]
+config = "${mod_group}.mixins.json"
+
+# Dependencies.
+[[dependencies.${ mod_id }]]
+modId = "neoforge"
+type = "required"
+versionRange = "[${neo_version},)"
+ordering = "NONE"
+side = "BOTH"
+[[dependencies.${ mod_id }]]
+modId = "minecraft"
+type = "required"
+versionRange = "[${minecraft_version}]"
+ordering = "NONE"
+side = "BOTH"

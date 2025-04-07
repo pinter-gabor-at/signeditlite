@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.entity.SignBlockEntity;
 
 
 @Mixin(AbstractSignEditScreen.class)
-public interface AbstractSignEditScreenAccessor {
+public interface AbstractSignEditScreenAccessor extends ScreenAccessor {
 
 	/**
 	 * It should have been accessible outside its class ...
