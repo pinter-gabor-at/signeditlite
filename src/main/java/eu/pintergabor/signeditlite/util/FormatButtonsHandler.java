@@ -3,18 +3,16 @@ package eu.pintergabor.signeditlite.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import eu.pintergabor.signeditlite.config.ModConfig;
-import eu.pintergabor.signeditlite.mixin.AbstractSignEditScreenAccessor;
+import eu.pintergabor.signeditlite.config.ModConfigData;
 import org.jetbrains.annotations.NotNull;
 
-import net.minecraft.block.entity.HangingSignBlockEntity;
-import net.minecraft.block.entity.SignBlockEntity;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.ingame.AbstractSignEditScreen;
-import net.minecraft.client.gui.tooltip.Tooltip;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen;
+import net.minecraft.network.chat.Component;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -26,100 +24,92 @@ import net.fabricmc.fabric.api.client.screen.v1.Screens;
 public class FormatButtonsHandler {
 
 	/**
-	 * An array of all color formatting enums, defined in {@link Formatting}.
+	 * An array of all color formatting enums, defined in {@link ChatFormatting}.
 	 */
-	private static final Formatting[] colorFormattings = {
-		Formatting.BLACK,
-		Formatting.DARK_GRAY,
-		Formatting.DARK_BLUE,
-		Formatting.BLUE,
-		Formatting.DARK_GREEN,
-		Formatting.GREEN,
-		Formatting.DARK_AQUA,
-		Formatting.AQUA,
-		Formatting.DARK_RED,
-		Formatting.RED,
-		Formatting.DARK_PURPLE,
-		Formatting.LIGHT_PURPLE,
-		Formatting.GOLD,
-		Formatting.YELLOW,
-		Formatting.GRAY,
-		Formatting.WHITE
+	private static final ChatFormatting[] colorFormattings = {
+		ChatFormatting.BLACK,
+		ChatFormatting.DARK_GRAY,
+		ChatFormatting.DARK_BLUE,
+		ChatFormatting.BLUE,
+		ChatFormatting.DARK_GREEN,
+		ChatFormatting.GREEN,
+		ChatFormatting.DARK_AQUA,
+		ChatFormatting.AQUA,
+		ChatFormatting.DARK_RED,
+		ChatFormatting.RED,
+		ChatFormatting.DARK_PURPLE,
+		ChatFormatting.LIGHT_PURPLE,
+		ChatFormatting.GOLD,
+		ChatFormatting.YELLOW,
+		ChatFormatting.GRAY,
+		ChatFormatting.WHITE
 	};
 
 	/**
-	 * An array of all style formatting enums, defined in {@link Formatting}.
+	 * An array of all style formatting enums, defined in {@link ChatFormatting}.
 	 */
-	private static final Formatting[] modifierFormattings = {
-		Formatting.BOLD,
-		Formatting.ITALIC,
-		Formatting.UNDERLINE,
-		Formatting.STRIKETHROUGH,
-		Formatting.RESET
+	private static final ChatFormatting[] modifierFormattings = {
+		ChatFormatting.BOLD,
+		ChatFormatting.ITALIC,
+		ChatFormatting.UNDERLINE,
+		ChatFormatting.STRIKETHROUGH,
+		ChatFormatting.RESET
 	};
 
 	/**
-	 * Register {@link #onScreenOpened(Screen)} callback after opening the screen.
-	 */
-	public static void init() {
-		// But only if Text Formatting is enabled.
-		if (ModConfig.getInstance().enableSignTextFormatting) {
-			ScreenEvents.AFTER_INIT.register((client, screen, width, height) ->
-				onScreenOpened(screen)
-			);
-		}
-	}
-
-	/**
-	 * Called after opening the screen.
-	 * <p>
-	 * Add color and formatting buttons to the screen.
+	 * Create one button.
 	 *
-	 * @param screen Edit screen.
+	 * @param screen       Edit screen.
+	 * @param buttonX      Left X of the button.
+	 * @param buttonY      Top Y of the button.
+	 * @param buttonWidth  Button width.
+	 * @param buttonHeight Button height.
+	 * @param formatting   A formatting enum.
+	 * @return The button.
 	 */
-	private static void onScreenOpened(Screen screen) {
-		// A quick check to see if it is a sign edit screen.
-		if (screen instanceof AbstractSignEditScreen es) {
-			// Check configuration and add buttons if enabled.
-			var config = ModConfig.getInstance();
-			if (config.enableSignTextFormatting && isWoodenSign(es)) {
-				addButtonsToScreen(es);
-			}
+	@SuppressWarnings("SameParameterValue")
+	private static Button getFormatButton(
+		Screen screen,
+		int buttonX, int buttonY,
+		int buttonWidth, int buttonHeight,
+		ChatFormatting formatting) {
+		// Build a button that emulates the typing of two characters:
+		// The first is the formatting prefix '§',
+		// the second is the formatting code.
+		if (formatting.isFormat() || formatting == ChatFormatting.RESET) {
+			// Text is the name of the formatting, prefixed with the formatting code.
+			final String label = formatting.toString().concat(formatting.getName());
+			// Build a wide button.
+			return Button
+				.builder(
+					Component.literal(label),
+					cod -> {
+						screen.charTyped(ChatFormatting.PREFIX_CODE, 0);
+						screen.charTyped(formatting.getChar(), 0);
+					}
+				)
+				.pos(buttonX, buttonY)
+				.size(buttonWidth * 4, buttonHeight)
+				.tooltip(Tooltip.create(Component.literal(label)))
+				.build();
 		}
-
-	}
-
-	/**
-	 * @param screen edit screen.
-	 * @return true if the edit screen is associated with a Wooden Sign or with a Hanging Wooden Sign.
-	 */
-	private static boolean isWoodenSign(AbstractSignEditScreen screen) {
-		final var sbeclass =
-			((AbstractSignEditScreenAccessor) screen)
-				.getBlockEntity()
-				.getClass();
-		return (sbeclass == SignBlockEntity.class) ||
-			(sbeclass == HangingSignBlockEntity.class);
-	}
-
-	/**
-	 * Add color and style formatting button to screen.
-	 *
-	 * @param es edit screen.
-	 */
-	private static void addButtonsToScreen(AbstractSignEditScreen es) {
-		// Color buttons, 4x4
-		final var colorButtons = getFormatButtons(
-			es, colorFormattings,
-			(es.width / 2) - 170, 70, 4);
-		// Style formatting buttons, 1x5
-		final var modifierButtons = getFormatButtons(
-			es, modifierFormattings,
-			(es.width / 2) + 50, 70, modifierFormattings.length);
-		// Add them to the screen
-		var screenButtons = Screens.getButtons(es);
-		screenButtons.addAll(colorButtons);
-		screenButtons.addAll(modifierButtons);
+		// Text is a Black Large Square, (https://www.compart.com/en/unicode/U+2B1B),
+		// prefixed with the formatting code.
+		final String label = formatting.toString().concat("⬛");
+		final String tooltip = formatting.toString().concat(formatting.getName());
+		// Build a normal button.
+		return Button
+			.builder(
+				Component.literal(label),
+				cod -> {
+					screen.charTyped(ChatFormatting.PREFIX_CODE, 0);
+					screen.charTyped(formatting.getChar(), 0);
+				}
+			)
+			.pos(buttonX, buttonY)
+			.size(buttonWidth, buttonHeight)
+			.tooltip(Tooltip.create(Component.literal(tooltip)))
+			.build();
 	}
 
 	/**
@@ -133,11 +123,11 @@ public class FormatButtonsHandler {
 	 * @return The list.
 	 */
 	@SuppressWarnings("SameParameterValue")
-	private static @NotNull List<ButtonWidget> getFormatButtons(
-		Screen screen, Formatting[] formats,
+	private static @NotNull List<Button> getFormatButtons(
+		Screen screen, ChatFormatting[] formats,
 		int xOffset, int yOffset,
 		int rows) {
-		List<ButtonWidget> list = new ArrayList<>();
+		List<Button> list = new ArrayList<>();
 		final int gap = 0;
 		final int buttonSize = 20;
 		for (int i = 0; i < formats.length; i++) {
@@ -154,57 +144,52 @@ public class FormatButtonsHandler {
 	}
 
 	/**
-	 * Create one button.
+	 * Add color and style formatting button to screen.
 	 *
-	 * @param screen       Edit screen.
-	 * @param buttonX      Left X of the button.
-	 * @param buttonY      Top Y of the button.
-	 * @param buttonWidth  Button width.
-	 * @param buttonHeight Button height.
-	 * @param formatting   A formatting enum.
-	 * @return The button.
+	 * @param es edit screen.
 	 */
-	@SuppressWarnings("SameParameterValue")
-	private static ButtonWidget getFormatButton(
-		Screen screen,
-		int buttonX, int buttonY,
-		int buttonWidth, int buttonHeight,
-		Formatting formatting) {
-		// Build a button that emulates the typing of two characters:
-		// The first is the formatting prefix '§',
-		// the second is the formatting code.
-		if (formatting.isModifier() || formatting == Formatting.RESET) {
-			// Text is the name of the formatting, prefixed with the formatting code.
-			final String label = formatting.toString().concat(formatting.getName());
-			// Build a wide button.
-			return ButtonWidget
-				.builder(
-					Text.literal(label),
-					cod -> {
-						screen.charTyped(Formatting.FORMATTING_CODE_PREFIX, 0);
-						screen.charTyped(formatting.getCode(), 0);
-					}
-				)
-				.position(buttonX, buttonY)
-				.size(buttonWidth * 4, buttonHeight)
-				.tooltip(Tooltip.of(Text.literal(label)))
-				.build();
+	private static void addButtonsToScreen(AbstractSignEditScreen es) {
+		// Color buttons, 4x4.
+		final var colorButtons = getFormatButtons(
+			es, colorFormattings,
+			(es.width / 2) - 170, 70, 4);
+		// Style formatting buttons, 1x5.
+		final var modifierButtons = getFormatButtons(
+			es, modifierFormattings,
+			(es.width / 2) + 50, 70, modifierFormattings.length);
+		// Add them to the screen.
+		List<AbstractWidget> screenButtons = Screens.getButtons(es);
+		screenButtons.addAll(colorButtons);
+		screenButtons.addAll(modifierButtons);
+	}
+
+	/**
+	 * Called after opening the screen.
+	 * <p>
+	 * Add color and formatting buttons to the screen.
+	 *
+	 * @param screen Edit screen.
+	 */
+	private static void onScreenOpened(Screen screen) {
+		// A quick check to see if it is a sign edit screen.
+		if (screen instanceof AbstractSignEditScreen es) {
+			// Check configuration and add buttons if enabled.
+			ModConfigData config = ModConfigData.getInstance();
+			if (config.enableSignTextFormatting) {
+				addButtonsToScreen(es);
+			}
 		}
-		// Text is a square, prefixed with the formatting code.
-		final String label = formatting.toString().concat("⬛");
-		final String tooltip = formatting.toString().concat(formatting.getName());
-		// Build a normal button.
-		return ButtonWidget
-			.builder(
-				Text.literal(label),
-				cod -> {
-					screen.charTyped(Formatting.FORMATTING_CODE_PREFIX, 0);
-					screen.charTyped(formatting.getCode(), 0);
-				}
-			)
-			.position(buttonX, buttonY)
-			.size(buttonWidth, buttonHeight)
-			.tooltip(Tooltip.of(Text.literal(tooltip)))
-			.build();
+	}
+
+	/**
+	 * Register {@link #onScreenOpened(Screen)} callback after opening the screen.
+	 */
+	public static void init() {
+		// But only if text formatting is enabled.
+		if (ModConfigData.getInstance().enableSignTextFormatting) {
+			ScreenEvents.AFTER_INIT.register((client, screen, width, height) ->
+				onScreenOpened(screen)
+			);
+		}
 	}
 }

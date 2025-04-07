@@ -10,7 +10,7 @@ import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal
 @Config(name = "signeditlite")
-public class ModConfig implements ConfigData {
+public class ModConfigData implements ConfigData {
 	@ConfigEntry.Gui.Tooltip
 	public boolean enableSignTextFormatting = true;
 
@@ -18,10 +18,10 @@ public class ModConfig implements ConfigData {
 	public boolean enableFormattingKey = false;
 
 	public static void init() {
-		AutoConfig.register(ModConfig.class, Toml4jConfigSerializer::new);
+		AutoConfig.register(ModConfigData.class, Toml4jConfigSerializer::new);
 	}
 
-	public static ModConfig getInstance() {
-		return AutoConfig.getConfigHolder(ModConfig.class).getConfig();
+	public static ModConfigData getInstance() {
+		return AutoConfig.getConfigHolder(ModConfigData.class).getConfig();
 	}
 }
