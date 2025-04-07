@@ -1,12 +1,12 @@
 package eu.pintergabor.signeditlite.util;
 
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
 
 
 /**
- * String manipulating utilities
+ * String manipulating utilities.
  */
-public class StringUtil {
+public class StringUtil2 {
 
 	/**
 	 * Returns the {@code char} value at the specified index.
@@ -39,7 +39,7 @@ public class StringUtil {
 				// Two character long UTF8 sequences count as one.
 				cursor += 2;
 				i++;
-			} else if (cc == Formatting.FORMATTING_CODE_PREFIX) {
+			} else if (cc == ChatFormatting.PREFIX_CODE) {
 				// Two character long formatting sequences count as zero.
 				cursor += 2;
 			} else {
@@ -68,7 +68,7 @@ public class StringUtil {
 				// Two character long UTF8 sequences count as one
 				cursor -= 2;
 				i++;
-			} else if (pc == Formatting.FORMATTING_CODE_PREFIX) {
+			} else if (pc == ChatFormatting.PREFIX_CODE) {
 				// Two character long formatting sequences count as zero
 				cursor -= 2;
 			} else {
