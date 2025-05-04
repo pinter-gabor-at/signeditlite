@@ -1,6 +1,7 @@
 plugins {
 	id 'java-library'
-	id 'net.neoforged.moddev' version '2.0.80'
+	// https://projects.neoforged.net/neoforged/moddevgradle
+	id 'net.neoforged.moddev' version '2.0.86'
 	id 'idea'
 }
 
