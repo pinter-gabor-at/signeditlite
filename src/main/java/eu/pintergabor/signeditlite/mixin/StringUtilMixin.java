@@ -19,7 +19,9 @@ public abstract class StringUtilMixin {
 	 * This may lead to incompatibilities.
 	 */
 	@Inject(method = "isAllowedChatCharacter", at = @At("HEAD"), cancellable = true)
-	private static void isAllowedChatCharacter(char c, CallbackInfoReturnable<Boolean> cir) {
+	private static void isAllowedChatCharacter(
+		char c, CallbackInfoReturnable<Boolean> cir
+	) {
 		if (ModConfigData.enableSignTextFormatting) {
 			// Allow sign texts to contain the formatting code prefix.
 			if (c == ChatFormatting.PREFIX_CODE) {

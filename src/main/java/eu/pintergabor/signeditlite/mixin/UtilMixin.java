@@ -19,7 +19,8 @@ public abstract class UtilMixin {
 	@Inject(method = "offsetByCodepoints", at = @At("HEAD"), cancellable = true)
 	private static void newMoveCursor(
 		String string, int cursor, int delta,
-		CallbackInfoReturnable<Integer> cir) {
+		CallbackInfoReturnable<Integer> cir
+	) {
 		if (ModConfigData.enableSignTextFormatting) {
 			cir.setReturnValue(StringUtil2.moveCursor(string, cursor, delta));
 		}

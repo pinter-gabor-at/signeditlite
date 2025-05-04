@@ -13,7 +13,7 @@ displayName = "Iron Signs"
 description = "More signs."
 authors = "Pintér Gábor <pinter.gabor@gmx.at>"
 displayURL = "https://pintergabor.eu/en/minecraft/mods/ironsigns/"
-logoFile = "eu.pintergabor.ironsigns.icon.png"
+logoFile = "${mod_group}.icon.png"
 
 # Mixins.
 [[mixins]]

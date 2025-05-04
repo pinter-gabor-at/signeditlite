@@ -14,9 +14,9 @@ import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 @Mod(value = Global.MODID, dist = Dist.CLIENT)
 public final class ModClient {
 
-    @SuppressWarnings("unused")
-    public ModClient(IEventBus modEventBus, ModContainer modContainer) {
-        // Config screen.
-        modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
-    }
+	@SuppressWarnings("unused")
+	public ModClient(IEventBus modEventBus, ModContainer modContainer) {
+		// Config screen.
+		modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+	}
 }
