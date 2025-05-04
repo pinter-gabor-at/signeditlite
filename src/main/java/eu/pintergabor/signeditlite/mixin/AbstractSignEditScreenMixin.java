@@ -1,5 +1,6 @@
 package eu.pintergabor.signeditlite.mixin;
 
+import eu.pintergabor.signeditlite.config.ModConfigData;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Mixin;
@@ -29,9 +30,11 @@ public abstract class AbstractSignEditScreenMixin {
 	 * Undocumented extra feature for nerds.
 	 */
 	@Inject(method = "keyPressed", at = @At("HEAD"), cancellable = true)
-	private void keyPessed(int keyCode, int scanCode, int modifiers, CallbackInfoReturnable<Boolean> cir) {
+	private void keyPessed(
+		int keyCode, int scanCode, int modifiers, CallbackInfoReturnable<Boolean> cir
+	) {
 		// Global.LOGGER.info("Keycode: {}, Modifiers: {}", keyCode, modifiers);
-		if (eu.pintergabor.signeditlite.config.ModConfigData.getInstance().enableFormattingKey &&
+		if (ModConfigData.getInstance().enableFormattingKey &&
 			keyCode == GLFW.GLFW_KEY_LEFT_BRACKET && ((modifiers & GLFW.GLFW_MOD_CONTROL) != 0)) {
 			// Global.LOGGER.info("Ctrl+[");
 			if (signField != null) {
