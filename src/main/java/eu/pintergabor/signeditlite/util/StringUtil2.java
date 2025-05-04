@@ -65,14 +65,14 @@ public class StringUtil2 {
 			final char cc = charAt(string, cursor - 1);
 			final char pc = charAt(string, cursor - 2);
 			if (Character.isLowSurrogate(cc) && Character.isHighSurrogate(pc)) {
-				// Two character long UTF8 sequences count as one
+				// Two character long UTF8 sequences count as one.
 				cursor -= 2;
 				i++;
 			} else if (pc == ChatFormatting.PREFIX_CODE) {
-				// Two character long formatting sequences count as zero
+				// Two character long formatting sequences count as zero.
 				cursor -= 2;
 			} else {
-				// Normal characters count as one
+				// Normal characters count as one.
 				cursor--;
 				i++;
 			}
@@ -91,10 +91,10 @@ public class StringUtil2 {
 	public static int moveCursor(String string, int cursor, int delta) {
 		// Global.LOGGER.info("\"{}\", cursor={}, delta={}", string, cursor, delta);
 		if (0 < delta) {
-			// Move forward
+			// Move forward.
 			cursor = moveCursorForward(string, cursor, delta);
 		} else if (delta < 0) {
-			// Move backward
+			// Move backward.
 			cursor = moveCursorBackward(string, cursor, -delta);
 		}
 		// Global.LOGGER.info(" --> cursor={}", cursor);

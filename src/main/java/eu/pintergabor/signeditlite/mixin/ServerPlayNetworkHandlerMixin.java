@@ -18,7 +18,8 @@ public abstract class ServerPlayNetworkHandlerMixin {
 		at = @At(value = "INVOKE",
 			target = "Ljava/util/stream/Stream;map(Ljava/util/function/Function;)Ljava/util/stream/Stream;"))
 	private Stream<String> nothing(
-		Stream<String> instance, Function<String, String> function) {
+		Stream<String> instance, Function<String, String> function
+	) {
 		// function === ChatFormatting::stripFormatting.
 		// Strip formatting only if text formatting is disabled in config.
 		return ModConfigData.getInstance().enableSignTextFormatting ?

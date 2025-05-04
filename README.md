@@ -33,7 +33,7 @@ The source code has lots of comments to help learning Minecraft modding.
 ## Related projects
 
 - [Text Utilities](https://modrinth.com/mod/text-utilities) adds color and formatting options to signs, book and anvils, but unfortunately it has not been updated to Minecraft 1.21.5 version at the time of writing, and it is a Fabric only mod.  
-- [Iron Signs](https://modrinth.com/mod/ironsigns) adds vibrant, high contrast, painted signs, which can be colored and formatted similarily. It also enables coloring and formatting Vanilla wooden signs exactly tha same way as this mod. I wonder who wrote that mod.
+- [Iron Signs](https://modrinth.com/mod/ironsigns) adds vibrant, high contrast, painted signs, which can be colored and formatted similarily. It also enables coloring and formatting Vanilla wooden signs exactly the same way as this mod. I wonder who wrote that mod.
 
 
 ## Thanks

@@ -72,7 +72,8 @@ public class FormatButtonsHandler {
 		Screen screen,
 		int buttonX, int buttonY,
 		int buttonWidth, int buttonHeight,
-		ChatFormatting formatting) {
+		ChatFormatting formatting
+	) {
 		// Build a button that emulates the typing of two characters:
 		// The first is the formatting prefix '§',
 		// the second is the formatting code.
@@ -126,7 +127,8 @@ public class FormatButtonsHandler {
 	private static @NotNull List<Button> getFormatButtons(
 		Screen screen, ChatFormatting[] formats,
 		int xOffset, int yOffset,
-		int rows) {
+		int rows
+	) {
 		List<Button> list = new ArrayList<>();
 		final int gap = 0;
 		final int buttonSize = 20;
@@ -187,7 +189,8 @@ public class FormatButtonsHandler {
 	public static void init() {
 		// But only if text formatting is enabled.
 		if (ModConfigData.getInstance().enableSignTextFormatting) {
-			ScreenEvents.AFTER_INIT.register((client, screen, width, height) ->
+			ScreenEvents.AFTER_INIT.register(
+				(client, screen, width, height) ->
 				onScreenOpened(screen)
 			);
 		}
