@@ -1,6 +1,7 @@
 plugins {
 	id 'java-library'
-	id 'fabric-loom' version '1.10-SNAPSHOT'
+	// https://fabricmc.net/develop
+	id 'fabric-loom' version '1.13-SNAPSHOT'
 	id 'idea'
 }
 
@@ -66,8 +67,6 @@ idea {
 }
 
 processResources {
-	inputs.property "version", project.version
-
 	filesMatching("fabric.mod.json") {
 		expand "mod_group": project.mod_group,
 			"mod_id": project.mod_id,
