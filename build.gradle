@@ -1,7 +1,7 @@
 plugins {
 	id 'java-library'
 	// https://projects.neoforged.net/neoforged/moddevgradle
-	id 'net.neoforged.moddev' version '2.0.86'
+	id 'net.neoforged.moddev' version '2.0.120'
 	id 'idea'
 }
 
@@ -46,6 +46,7 @@ neoForge {
 			// Specify the modid for data generation,
 			// where to output the resulting resource,
 			// and where to look for existing resources.
+			//noinspection GroovyAssignabilityCheck
 			programArguments.addAll '--mod', project.mod_id, '--all',
 				'--output', file('src/main/generated/').getAbsolutePath(),
 				'--existing', file('src/main/resources/').getAbsolutePath()
@@ -61,6 +62,7 @@ neoForge {
 	mods {
 		// There is only one mod.
 		"${mod_id}" {
+			//noinspection GroovyAssignabilityCheck
 			sourceSet(sourceSets.main)
 		}
 	}
