@@ -9,10 +9,10 @@ license = "MIT"
 [[mods]]
 modId = "${mod_id}"
 version = "${mod_version}"
-displayName = "Iron Signs"
-description = "More signs."
+displayName = "Sign Edit Lite"
+description = "Add formatting options to signs."
 authors = "Pintér Gábor <pinter.gabor@gmx.at>"
-displayURL = "https://pintergabor.eu/en/minecraft/mods/ironsigns/"
+displayURL = "https://pintergabor.eu/en/minecraft/mods/signeditlite/"
 logoFile = "${mod_group}.icon.png"
 
 # Mixins.
