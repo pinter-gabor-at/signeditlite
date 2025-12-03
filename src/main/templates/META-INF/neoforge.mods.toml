@@ -8,7 +8,7 @@ license = "MIT"
 # Mod parameters.
 [[mods]]
 modId = "${mod_id}"
-version = "${mod_version}"
+version = "${version}"
 displayName = "Sign Edit Lite"
 description = "Add formatting options to signs."
 authors = "Pintér Gábor <pinter.gabor@gmx.at>"

@@ -79,7 +79,8 @@ var generateModMetadata =
 			neo_version         : neo_version,
 			mod_group           : mod_group,
 			mod_id              : mod_id,
-			mod_version         : mod_version
+			mod_version         : mod_version,
+			version             : version
 		]
 		inputs.properties replaceProperties
 		expand replaceProperties
