@@ -12,6 +12,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen;
+import net.minecraft.client.input.CharacterEvent;
 import net.minecraft.network.chat.Component;
 
 
@@ -79,8 +80,8 @@ public class FormatButtonsHandler {
 				.builder(
 					Component.literal(label),
 					cod -> {
-						screen.charTyped(ChatFormatting.PREFIX_CODE, 0);
-						screen.charTyped(formatting.getChar(), 0);
+						screen.charTyped(new CharacterEvent(ChatFormatting.PREFIX_CODE, 0));
+						screen.charTyped(new CharacterEvent(formatting.getChar(), 0));
 					}
 				)
 				.pos(buttonX, buttonY)
@@ -97,8 +98,8 @@ public class FormatButtonsHandler {
 			.builder(
 				Component.literal(label),
 				cod -> {
-					screen.charTyped(ChatFormatting.PREFIX_CODE, 0);
-					screen.charTyped(formatting.getChar(), 0);
+					screen.charTyped(new CharacterEvent(ChatFormatting.PREFIX_CODE, 0));
+					screen.charTyped(new CharacterEvent(formatting.getChar(), 0));
 				}
 			)
 			.pos(buttonX, buttonY)

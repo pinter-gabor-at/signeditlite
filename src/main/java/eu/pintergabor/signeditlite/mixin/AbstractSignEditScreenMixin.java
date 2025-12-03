@@ -2,6 +2,11 @@ package eu.pintergabor.signeditlite.mixin;
 
 import eu.pintergabor.signeditlite.config.ModConfigData;
 import eu.pintergabor.signeditlite.util.FormatButtonsHandler;
+
+import net.minecraft.client.input.CharacterEvent;
+
+import net.minecraft.client.input.KeyEvent;
+
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Mixin;
@@ -37,14 +42,14 @@ public abstract class AbstractSignEditScreenMixin {
 	 */
 	@Inject(method = "keyPressed", at = @At("HEAD"), cancellable = true)
 	private void keyPessed(
-		int keyCode, int scanCode, int modifiers, CallbackInfoReturnable<Boolean> cir
+		KeyEvent event, CallbackInfoReturnable<Boolean> cir
 	) {
-		// Global.LOGGER.info("Keycode: {}, Modifiers: {}", keyCode, modifiers);
+		// Global.LOGGER.info("Keycode: {}, Modifiers: {}", event.key(), event.modifiers());
 		if (ModConfigData.enableSignTextFormatting && ModConfigData.enableFormattingKey &&
-			keyCode == GLFW.GLFW_KEY_LEFT_BRACKET && ((modifiers & GLFW.GLFW_MOD_CONTROL) != 0)) {
+			event.key() == GLFW.GLFW_KEY_LEFT_BRACKET && ((event.modifiers() & GLFW.GLFW_MOD_CONTROL) != 0)) {
 			// Global.LOGGER.info("Ctrl+[");
 			if (signField != null) {
-				signField.charTyped(ChatFormatting.PREFIX_CODE);
+				signField.charTyped(new CharacterEvent(ChatFormatting.PREFIX_CODE, 0));
 				cir.setReturnValue(true);
 			}
 		}
