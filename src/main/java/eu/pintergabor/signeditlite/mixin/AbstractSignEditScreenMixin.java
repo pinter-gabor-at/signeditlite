@@ -2,8 +2,6 @@ package eu.pintergabor.signeditlite.mixin;
 
 import eu.pintergabor.signeditlite.config.ModConfigData;
 import eu.pintergabor.signeditlite.util.FormatButtonsHandler;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,7 +16,6 @@ import net.minecraft.client.gui.font.TextFieldHelper;
 import net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen;
 
 
-@OnlyIn(Dist.CLIENT)
 @Mixin(AbstractSignEditScreen.class)
 public abstract class AbstractSignEditScreenMixin {
 	@Shadow
