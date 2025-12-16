@@ -1,9 +1,11 @@
 package eu.pintergabor.signeditlite;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 
 public final class Global {
@@ -28,8 +30,9 @@ public final class Global {
 	 *
 	 * @param path Name without {@link #MODID}.
 	 */
+	@Contract(pure = true)
 	@SuppressWarnings("unused")
-	public static String modName(String path) {
+	public static @NotNull String modName(String path) {
 		return MODID + ":" + path;
 	}
 
@@ -38,8 +41,9 @@ public final class Global {
 	 *
 	 * @param path Name without {@link #MODID}.
 	 */
+	@Contract("_ -> new")
 	@SuppressWarnings("unused")
-	public static ResourceLocation modId(String path) {
-		return ResourceLocation.fromNamespaceAndPath(MODID, path);
+	public static @NotNull Identifier modId(String path) {
+		return Identifier.fromNamespaceAndPath(MODID, path);
 	}
 }
