@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eu.pintergabor.signeditlite.config.ModConfigData;
-import eu.pintergabor.signeditlite.mixin.AbstractSignEditScreenAccessor;
+import eu.pintergabor.signeditlite.mixin.ScreenAccessor;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.Button;
@@ -63,11 +64,11 @@ public class FormatButtonsHandler {
 	 * @return The button.
 	 */
 	@SuppressWarnings("SameParameterValue")
-	private static Button getFormatButton(
-		Screen screen,
+	private static @NonNull Button getFormatButton(
+		@NonNull Screen screen,
 		int buttonX, int buttonY,
 		int buttonWidth, int buttonHeight,
-		ChatFormatting formatting
+		@NonNull ChatFormatting formatting
 	) {
 		// Build a button that emulates the typing of two characters:
 		// The first is the formatting prefix '§',
@@ -120,7 +121,7 @@ public class FormatButtonsHandler {
 	 */
 	@SuppressWarnings("SameParameterValue")
 	private static @NotNull List<Button> getFormatButtons(
-		Screen screen, ChatFormatting[] formats,
+		@NonNull Screen screen, ChatFormatting @NonNull [] formats,
 		int xOffset, int yOffset,
 		int rows
 	) {
@@ -145,8 +146,10 @@ public class FormatButtonsHandler {
 	 *
 	 * @param es edit screen.
 	 */
-	public static void addButtonsToScreen(AbstractSignEditScreen es, List<Button> buttons) {
-		final AbstractSignEditScreenAccessor aes = (AbstractSignEditScreenAccessor) es;
+	public static void addButtonsToScreen(
+		@NonNull AbstractSignEditScreen es,
+		@NonNull List<Button> buttons) {
+		final ScreenAccessor aes = (ScreenAccessor) es;
 		buttons.forEach(aes::invokeAddRenderableWidget);
 	}
 
@@ -155,7 +158,7 @@ public class FormatButtonsHandler {
 	 *
 	 * @param es edit screen.
 	 */
-	private static void addButtonsToScreen(AbstractSignEditScreen es) {
+	private static void addButtonsToScreen(@NonNull AbstractSignEditScreen es) {
 		// Color buttons, 4x4.
 		final List<Button> colorButtons = getFormatButtons(
 			es, colorFormattings,
@@ -176,7 +179,7 @@ public class FormatButtonsHandler {
 	 *
 	 * @param es Edit screen.
 	 */
-	public static void onScreenOpened(AbstractSignEditScreen es) {
+	public static void onScreenOpened(@NonNull AbstractSignEditScreen es) {
 		// Check configuration and add buttons if enabled.
 		if (ModConfigData.enableSignTextFormatting) {
 			addButtonsToScreen(es);
