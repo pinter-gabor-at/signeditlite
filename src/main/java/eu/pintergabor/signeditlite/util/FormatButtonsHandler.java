@@ -22,6 +22,8 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.fabric.api.client.screen.v1.Screens;
 
+import org.jspecify.annotations.NonNull;
+
 
 @Environment(EnvType.CLIENT)
 public class FormatButtonsHandler {
@@ -71,11 +73,11 @@ public class FormatButtonsHandler {
 	 * @return The button.
 	 */
 	@SuppressWarnings("SameParameterValue")
-	private static Button getFormatButton(
+	private static @NonNull Button getFormatButton(
 		Screen screen,
 		int buttonX, int buttonY,
 		int buttonWidth, int buttonHeight,
-		ChatFormatting formatting
+		@NonNull ChatFormatting formatting
 	) {
 		// Build a button that emulates the typing of two characters:
 		// The first is the formatting prefix '§',
