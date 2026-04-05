@@ -91,7 +91,7 @@ public class StringUtil2 {
 	 * @return the new cursor position.
 	 */
 	public static int moveCursor(@NonNull String input, int pos, int offset) {
-		// Global.LOGGER.info("\"{}\", cursor={}, delta={}", string, cursor, delta);
+		// Global.LOGGER.info("\"{}\", pos={}, offset={}", input, pos, offset);
 		if (0 < offset) {
 			// Move forward.
 			pos = moveCursorForward(input, pos, offset);
@@ -99,7 +99,7 @@ public class StringUtil2 {
 			// Move backward.
 			pos = moveCursorBackward(input, pos, -offset);
 		}
-		// Global.LOGGER.info(" --> cursor={}", cursor);
+		// Global.LOGGER.info(" --> pos={}", pos);
 		return pos;
 	}
 }
