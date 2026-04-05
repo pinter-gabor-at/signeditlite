@@ -40,7 +40,7 @@ public abstract class AbstractSignEditScreenMixin {
 			event.key() == GLFW.GLFW_KEY_LEFT_BRACKET && ((event.modifiers() & GLFW.GLFW_MOD_CONTROL) != 0)) {
 			// Global.LOGGER.info("Ctrl+[");
 			if (signField != null) {
-				signField.charTyped(new CharacterEvent(ChatFormatting.PREFIX_CODE, 0));
+				signField.charTyped(new CharacterEvent(ChatFormatting.PREFIX_CODE));
 				cir.setReturnValue(true);
 			}
 		}
