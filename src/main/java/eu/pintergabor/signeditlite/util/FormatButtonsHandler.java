@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eu.pintergabor.signeditlite.config.ModConfigData;
-
-import net.minecraft.client.input.CharacterEvent;
-
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -15,14 +12,13 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen;
+import net.minecraft.client.input.CharacterEvent;
 import net.minecraft.network.chat.Component;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.fabric.api.client.screen.v1.Screens;
-
-import org.jspecify.annotations.NonNull;
 
 
 @Environment(EnvType.CLIENT)
@@ -89,9 +85,9 @@ public class FormatButtonsHandler {
 			return Button
 				.builder(
 					Component.literal(label),
-					cod -> {
-						screen.charTyped(new CharacterEvent(ChatFormatting.PREFIX_CODE, 0));
-						screen.charTyped(new CharacterEvent(formatting.getChar(), 0));
+					_ -> {
+						screen.charTyped(new CharacterEvent(ChatFormatting.PREFIX_CODE));
+						screen.charTyped(new CharacterEvent(formatting.getChar()));
 					}
 				)
 				.pos(buttonX, buttonY)
@@ -107,9 +103,9 @@ public class FormatButtonsHandler {
 		return Button
 			.builder(
 				Component.literal(label),
-				cod -> {
-					screen.charTyped(new CharacterEvent(ChatFormatting.PREFIX_CODE, 0));
-					screen.charTyped(new CharacterEvent(formatting.getChar(), 0));
+				_ -> {
+					screen.charTyped(new CharacterEvent(ChatFormatting.PREFIX_CODE));
+					screen.charTyped(new CharacterEvent(formatting.getChar()));
 				}
 			)
 			.pos(buttonX, buttonY)
@@ -129,7 +125,7 @@ public class FormatButtonsHandler {
 	 * @return The list.
 	 */
 	@SuppressWarnings("SameParameterValue")
-	private static @NotNull List<Button> getFormatButtons(
+	private static @NonNull List<Button> getFormatButtons(
 		Screen screen, ChatFormatting[] formats,
 		int xOffset, int yOffset,
 		int rows
@@ -165,7 +161,7 @@ public class FormatButtonsHandler {
 			es, modifierFormattings,
 			(es.width / 2) + 50, 70, modifierFormattings.length);
 		// Add them to the screen.
-		List<AbstractWidget> screenButtons = Screens.getButtons(es);
+		List<AbstractWidget> screenButtons = Screens.getWidgets(es);
 		screenButtons.addAll(colorButtons);
 		screenButtons.addAll(modifierButtons);
 	}
@@ -195,8 +191,8 @@ public class FormatButtonsHandler {
 		// But only if text formatting is enabled.
 		if (ModConfigData.getInstance().enableSignTextFormatting) {
 			ScreenEvents.AFTER_INIT.register(
-				(client, screen, width, height) ->
-				onScreenOpened(screen)
+				(_, screen, _, _) ->
+					onScreenOpened(screen)
 			);
 		}
 	}
