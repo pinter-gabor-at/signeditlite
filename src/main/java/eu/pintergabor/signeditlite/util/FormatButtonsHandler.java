@@ -5,7 +5,6 @@ import java.util.List;
 
 import eu.pintergabor.signeditlite.config.ModConfigData;
 import eu.pintergabor.signeditlite.mixin.ScreenAccessor;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 
 import net.minecraft.ChatFormatting;
@@ -80,9 +79,9 @@ public class FormatButtonsHandler {
 			return Button
 				.builder(
 					Component.literal(label),
-					cod -> {
-						screen.charTyped(new CharacterEvent(ChatFormatting.PREFIX_CODE, 0));
-						screen.charTyped(new CharacterEvent(formatting.getChar(), 0));
+					_ -> {
+						screen.charTyped(new CharacterEvent(ChatFormatting.PREFIX_CODE));
+						screen.charTyped(new CharacterEvent(formatting.getChar()));
 					}
 				)
 				.pos(buttonX, buttonY)
@@ -98,9 +97,9 @@ public class FormatButtonsHandler {
 		return Button
 			.builder(
 				Component.literal(label),
-				cod -> {
-					screen.charTyped(new CharacterEvent(ChatFormatting.PREFIX_CODE, 0));
-					screen.charTyped(new CharacterEvent(formatting.getChar(), 0));
+				_ -> {
+					screen.charTyped(new CharacterEvent(ChatFormatting.PREFIX_CODE));
+					screen.charTyped(new CharacterEvent(formatting.getChar()));
 				}
 			)
 			.pos(buttonX, buttonY)
@@ -120,7 +119,7 @@ public class FormatButtonsHandler {
 	 * @return The list.
 	 */
 	@SuppressWarnings("SameParameterValue")
-	private static @NotNull List<Button> getFormatButtons(
+	private static @NonNull List<Button> getFormatButtons(
 		@NonNull Screen screen, ChatFormatting @NonNull [] formats,
 		int xOffset, int yOffset,
 		int rows

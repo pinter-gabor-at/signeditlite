@@ -2,6 +2,8 @@ package eu.pintergabor.signeditlite.util;
 
 import net.minecraft.ChatFormatting;
 
+import org.jspecify.annotations.NonNull;
+
 
 /**
  * String manipulating utilities.
@@ -22,82 +24,82 @@ public class StringUtil2 {
 	}
 
 	/**
-	 * Move the {@code cursor} in the {@code string} by a {@code delta} amount.
+	 * Move the cursor position {@code pos} in the {@code input} string by {@code offset} amount.
 	 * <p>
 	 * Skip surrogate characters the same way as the original, and skip color and formatting codes.
 	 *
-	 * @param delta >=0.
+	 * @param offset >=0.
 	 * @return the new cursor position.
 	 */
-	public static int moveCursorForward(String string, int cursor, int delta) {
-		final int len = string.length();
+	public static int moveCursorForward(@NonNull String input, int pos, int offset) {
+		final int len = input.length();
 		int i = 0;
-		while (cursor < len && i < delta) {
-			final char cc = charAt(string, cursor);
-			final char nc = charAt(string, cursor + 1);
+		while (pos < len && i < offset) {
+			final char cc = charAt(input, pos);
+			final char nc = charAt(input, pos + 1);
 			if (Character.isHighSurrogate(cc) && Character.isLowSurrogate(nc)) {
 				// Two character long UTF8 sequences count as one.
-				cursor += 2;
+				pos += 2;
 				i++;
 			} else if (cc == ChatFormatting.PREFIX_CODE) {
 				// Two character long formatting sequences count as zero.
-				cursor += 2;
+				pos += 2;
 			} else {
 				// Normal characters count as one.
-				cursor++;
+				pos++;
 				i++;
 			}
 		}
-		return Math.min(cursor, len);
+		return Math.min(pos, len);
 	}
 
 	/**
-	 * Move the {@code cursor} in the {@code string} by a {@code delta} amount.
+	 * Move the cursor position {@code pos} in the {@code input} string by {@code offset} amount.
 	 * <p>
 	 * Skip surrogate characters the same way as the original, and skip color and formatting codes.
 	 *
-	 * @param delta >=0.
+	 * @param offset >=0.
 	 * @return the new cursor position.
 	 */
-	public static int moveCursorBackward(String string, int cursor, int delta) {
+	public static int moveCursorBackward(@NonNull String input, int pos, int offset) {
 		int i = 0;
-		while (0 < cursor && i < delta) {
-			final char cc = charAt(string, cursor - 1);
-			final char pc = charAt(string, cursor - 2);
+		while (0 < pos && i < offset) {
+			final char cc = charAt(input, pos - 1);
+			final char pc = charAt(input, pos - 2);
 			if (Character.isLowSurrogate(cc) && Character.isHighSurrogate(pc)) {
 				// Two character long UTF8 sequences count as one.
-				cursor -= 2;
+				pos -= 2;
 				i++;
 			} else if (pc == ChatFormatting.PREFIX_CODE) {
 				// Two character long formatting sequences count as zero.
-				cursor -= 2;
+				pos -= 2;
 			} else {
 				// Normal characters count as one.
-				cursor--;
+				pos--;
 				i++;
 			}
 		}
-		return Math.max(0, cursor);
+		return Math.max(0, pos);
 	}
 
 	/**
-	 * Move the {@code cursor} in the {@code string} by a {@code delta} amount.
+	 * Move the cursor position {@code pos} in the {@code input} string by {@code offset} amount.
 	 * <p>
 	 * Skip surrogate characters the same way as the original, and skip color and formatting codes.
 	 *
-	 * @param delta if 0<=delta then move forward else move backward.
+	 * @param offset if 0<=delta then move forward else move backward.
 	 * @return the new cursor position.
 	 */
-	public static int moveCursor(String string, int cursor, int delta) {
-		// Global.LOGGER.info("\"{}\", cursor={}, delta={}", string, cursor, delta);
-		if (0 < delta) {
+	public static int moveCursor(@NonNull String input, int pos, int offset) {
+		// Global.LOGGER.info("\"{}\", pos={}, offset={}", input, pos, offset);
+		if (0 < offset) {
 			// Move forward.
-			cursor = moveCursorForward(string, cursor, delta);
-		} else if (delta < 0) {
+			pos = moveCursorForward(input, pos, offset);
+		} else if (offset < 0) {
 			// Move backward.
-			cursor = moveCursorBackward(string, cursor, -delta);
+			pos = moveCursorBackward(input, pos, -offset);
 		}
-		// Global.LOGGER.info(" --> cursor={}", cursor);
-		return cursor;
+		// Global.LOGGER.info(" --> pos={}", pos);
+		return pos;
 	}
 }
