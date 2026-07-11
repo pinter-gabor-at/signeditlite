@@ -68,9 +68,9 @@ public class FormatButtonsHandler {
 	 * @param formatting   A formatting enum.
 	 * @return The button.
 	 */
-	@SuppressWarnings("SameParameterValue")
+	@SuppressWarnings({"SameParameterValue", "unused"})
 	private static @NonNull Button getFormatButton(
-		Screen screen,
+		@NonNull Screen screen,
 		int buttonX, int buttonY,
 		int buttonWidth, int buttonHeight,
 		@NonNull ChatFormatting formatting
@@ -85,7 +85,7 @@ public class FormatButtonsHandler {
 			return Button
 				.builder(
 					Component.literal(label),
-					_ -> {
+					cod -> {
 						screen.charTyped(new CharacterEvent(ChatFormatting.PREFIX_CODE));
 						screen.charTyped(new CharacterEvent(formatting.getChar()));
 					}
@@ -103,7 +103,7 @@ public class FormatButtonsHandler {
 		return Button
 			.builder(
 				Component.literal(label),
-				_ -> {
+				cod -> {
 					screen.charTyped(new CharacterEvent(ChatFormatting.PREFIX_CODE));
 					screen.charTyped(new CharacterEvent(formatting.getChar()));
 				}
@@ -126,16 +126,16 @@ public class FormatButtonsHandler {
 	 */
 	@SuppressWarnings("SameParameterValue")
 	private static @NonNull List<Button> getFormatButtons(
-		Screen screen, ChatFormatting[] formats,
+		@NonNull Screen screen, ChatFormatting @NonNull [] formats,
 		int xOffset, int yOffset,
 		int rows
 	) {
-		List<Button> list = new ArrayList<>();
+		final List<Button> list = new ArrayList<>();
 		final int gap = 0;
 		final int buttonSize = 20;
 		for (int i = 0; i < formats.length; i++) {
-			int buttonX = xOffset + (i / rows + 1) * (buttonSize + gap);
-			int buttonY = i % rows * (buttonSize + gap) + yOffset;
+			final int buttonX = xOffset + (i / rows + 1) * (buttonSize + gap);
+			final int buttonY = i % rows * (buttonSize + gap) + yOffset;
 			list.add(
 				getFormatButton(
 					screen,
@@ -153,11 +153,11 @@ public class FormatButtonsHandler {
 	 */
 	private static void addButtonsToScreen(AbstractSignEditScreen es) {
 		// Color buttons, 4x4.
-		final var colorButtons = getFormatButtons(
+		final List<Button> colorButtons = getFormatButtons(
 			es, colorFormattings,
 			(es.width / 2) - 170, 70, 4);
 		// Style formatting buttons, 1x5.
-		final var modifierButtons = getFormatButtons(
+		final List<Button> modifierButtons = getFormatButtons(
 			es, modifierFormattings,
 			(es.width / 2) + 50, 70, modifierFormattings.length);
 		// Add them to the screen.
@@ -187,11 +187,12 @@ public class FormatButtonsHandler {
 	/**
 	 * Register {@link #onScreenOpened(Screen)} callback after opening the screen.
 	 */
+	@SuppressWarnings("unused")
 	public static void init() {
 		// But only if text formatting is enabled.
 		if (ModConfigData.getInstance().enableSignTextFormatting) {
 			ScreenEvents.AFTER_INIT.register(
-				(_, screen, _, _) ->
+				(client, screen, width, height) ->
 					onScreenOpened(screen)
 			);
 		}

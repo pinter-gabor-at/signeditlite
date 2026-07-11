@@ -1,8 +1,8 @@
 package eu.pintergabor.signeditlite.util;
 
-import net.minecraft.ChatFormatting;
-
 import org.jspecify.annotations.NonNull;
+
+import net.minecraft.ChatFormatting;
 
 
 /**

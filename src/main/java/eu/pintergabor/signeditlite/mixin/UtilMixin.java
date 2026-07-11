@@ -14,7 +14,7 @@ import net.minecraft.util.Util;
 public abstract class UtilMixin {
 
 	/**
-	 * Rewrite {@code moveCursor} to work the same way as the original one, but skip formatting codes too.
+	 * Rewrite {@link Util#offsetByCodepoints} to work the same way as the original one, but skip formatting codes too.
 	 */
 	@Inject(method = "offsetByCodepoints", at = @At("HEAD"), cancellable = true)
 	private static void newMoveCursor(
