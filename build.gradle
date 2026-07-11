@@ -11,6 +11,10 @@ base {
 	archivesName = project.mod_id
 }
 
+loom {
+	accessWidenerPath = file("src/main/resources/${project.mod_group}.accesswidener")
+}
+
 repositories {
 	maven {
 		name = 'Fabric'

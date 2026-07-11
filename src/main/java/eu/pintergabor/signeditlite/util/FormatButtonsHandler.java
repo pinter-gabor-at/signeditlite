@@ -47,6 +47,28 @@ public class FormatButtonsHandler {
 	};
 
 	/**
+	 * An array of the names of all color formatting enums, defined in {@link ChatFormatting}.
+	 */
+	private static final String[] colorFormattingsName = {
+		"Black",
+		"Dark gray",
+		"Dark blue",
+		"Blue",
+		"Dark green",
+		"Green",
+		"Dark aqua",
+		"Aqua",
+		"Dark red",
+		"Red",
+		"Dark purple",
+		"Light purple",
+		"Gold",
+		"Yellow",
+		"Gray",
+		"White"
+	};
+
+	/**
 	 * An array of all style formatting enums, defined in {@link ChatFormatting}.
 	 */
 	private static final ChatFormatting[] modifierFormattings = {
@@ -58,7 +80,18 @@ public class FormatButtonsHandler {
 	};
 
 	/**
-	 * Create one button.
+	 * An array of the names of all style formatting enums, defined in {@link ChatFormatting}.
+	 */
+	private static final String[] modifierFormattingsName = {
+		"Bold",
+		"Italic",
+		"Underline",
+		"Strikethrough",
+		"Reset"
+	};
+
+	/**
+	 * Create one color format button.
 	 *
 	 * @param screen       Edit screen.
 	 * @param buttonX      Left X of the button.
@@ -69,43 +102,27 @@ public class FormatButtonsHandler {
 	 * @return The button.
 	 */
 	@SuppressWarnings({"SameParameterValue", "unused"})
-	private static @NonNull Button getFormatButton(
+	private static @NonNull Button getColorFormatButton(
 		@NonNull Screen screen,
 		int buttonX, int buttonY,
 		int buttonWidth, int buttonHeight,
-		@NonNull ChatFormatting formatting
+		@NonNull ChatFormatting formatting,
+		@NonNull String formattingName
 	) {
 		// Build a button that emulates the typing of two characters:
 		// The first is the formatting prefix '§',
 		// the second is the formatting code.
-		if (formatting.isFormat() || formatting == ChatFormatting.RESET) {
-			// Text is the name of the formatting, prefixed with the formatting code.
-			final String label = formatting.toString().concat(formatting.getName());
-			// Build a wide button.
-			return Button
-				.builder(
-					Component.literal(label),
-					cod -> {
-						screen.charTyped(new CharacterEvent(ChatFormatting.PREFIX_CODE));
-						screen.charTyped(new CharacterEvent(formatting.getChar()));
-					}
-				)
-				.pos(buttonX, buttonY)
-				.size(buttonWidth * 4, buttonHeight)
-				.tooltip(Tooltip.create(Component.literal(label)))
-				.build();
-		}
 		// Text is a Black Large Square, (https://www.compart.com/en/unicode/U+2B1B),
 		// prefixed with the formatting code.
 		final String label = formatting.toString().concat("⬛");
-		final String tooltip = formatting.toString().concat(formatting.getName());
+		final String tooltip = formatting.toString().concat(formattingName);
 		// Build a normal button.
 		return Button
 			.builder(
 				Component.literal(label),
 				cod -> {
 					screen.charTyped(new CharacterEvent(ChatFormatting.PREFIX_CODE));
-					screen.charTyped(new CharacterEvent(formatting.getChar()));
+					screen.charTyped(new CharacterEvent(formatting.code));
 				}
 			)
 			.pos(buttonX, buttonY)
@@ -115,18 +132,60 @@ public class FormatButtonsHandler {
 	}
 
 	/**
-	 * Create a list of color buttons.
+	 * Create one modifier format button.
+	 *
+	 * @param screen         Edit screen.
+	 * @param buttonX        Left X of the button.
+	 * @param buttonY        Top Y of the button.
+	 * @param buttonWidth    Button width.
+	 * @param buttonHeight   Button height.
+	 * @param formatting     A formatting enum.
+	 * @param formattingName Name of the formatting.
+	 * @return The button.
+	 */
+	@SuppressWarnings({"SameParameterValue", "unused"})
+	private static @NonNull Button getModifierFormatButton(
+		@NonNull Screen screen,
+		int buttonX, int buttonY,
+		int buttonWidth, int buttonHeight,
+		@NonNull ChatFormatting formatting,
+		@NonNull String formattingName
+	) {
+		// Build a button that emulates the typing of two characters:
+		// The first is the formatting prefix '§',
+		// the second is the formatting code.
+		// Text is the name of the formatting, prefixed with the formatting code.
+		final String label = formatting.toString().concat(formattingName);
+		// Build a wide button.
+		return Button
+			.builder(
+				Component.literal(label),
+				cod -> {
+					screen.charTyped(new CharacterEvent(ChatFormatting.PREFIX_CODE));
+					screen.charTyped(new CharacterEvent(formatting.code));
+				}
+			)
+			.pos(buttonX, buttonY)
+			.size(buttonWidth * 4, buttonHeight)
+			.tooltip(Tooltip.create(Component.literal(label)))
+			.build();
+	}
+
+	/**
+	 * Create a list of color format buttons.
 	 *
 	 * @param screen  Edit screen.
 	 * @param formats List of formatting codes.
+	 * @param names   List of formatting names.
 	 * @param xOffset Left X of the button field.
 	 * @param yOffset Top Y of the button field.
 	 * @param rows    Number of rows.
 	 * @return The list.
 	 */
 	@SuppressWarnings("SameParameterValue")
-	private static @NonNull List<Button> getFormatButtons(
-		@NonNull Screen screen, ChatFormatting @NonNull [] formats,
+	private static @NonNull List<Button> getColorFormatButtons(
+		@NonNull Screen screen,
+		ChatFormatting @NonNull [] formats, String[] names,
 		int xOffset, int yOffset,
 		int rows
 	) {
@@ -137,11 +196,45 @@ public class FormatButtonsHandler {
 			final int buttonX = xOffset + (i / rows + 1) * (buttonSize + gap);
 			final int buttonY = i % rows * (buttonSize + gap) + yOffset;
 			list.add(
-				getFormatButton(
+				getColorFormatButton(
 					screen,
 					buttonX, buttonY,
 					buttonSize, buttonSize,
-					formats[i]));
+					formats[i], names[i]));
+		}
+		return list;
+	}
+
+	/**
+	 * Create a list of modifier format buttons.
+	 *
+	 * @param screen  Edit screen.
+	 * @param formats List of formatting codes.
+	 * @param names   List of formatting names.
+	 * @param xOffset Left X of the button field.
+	 * @param yOffset Top Y of the button field.
+	 * @param rows    Number of rows.
+	 * @return The list.
+	 */
+	@SuppressWarnings("SameParameterValue")
+	private static @NonNull List<Button> getModifierFormatButtons(
+		@NonNull Screen screen,
+		ChatFormatting @NonNull [] formats, String[] names,
+		int xOffset, int yOffset,
+		int rows
+	) {
+		final List<Button> list = new ArrayList<>();
+		final int gap = 0;
+		final int buttonSize = 20;
+		for (int i = 0; i < formats.length; i++) {
+			final int buttonX = xOffset + (i / rows + 1) * (buttonSize + gap);
+			final int buttonY = i % rows * (buttonSize + gap) + yOffset;
+			list.add(
+				getModifierFormatButton(
+					screen,
+					buttonX, buttonY,
+					buttonSize, buttonSize,
+					formats[i], names[i]));
 		}
 		return list;
 	}
@@ -153,12 +246,12 @@ public class FormatButtonsHandler {
 	 */
 	private static void addButtonsToScreen(AbstractSignEditScreen es) {
 		// Color buttons, 4x4.
-		final List<Button> colorButtons = getFormatButtons(
-			es, colorFormattings,
+		final List<Button> colorButtons = getColorFormatButtons(
+			es, colorFormattings, colorFormattingsName,
 			(es.width / 2) - 170, 70, 4);
 		// Style formatting buttons, 1x5.
-		final List<Button> modifierButtons = getFormatButtons(
-			es, modifierFormattings,
+		final List<Button> modifierButtons = getModifierFormatButtons(
+			es, modifierFormattings, modifierFormattingsName,
 			(es.width / 2) + 50, 70, modifierFormattings.length);
 		// Add them to the screen.
 		List<AbstractWidget> screenButtons = Screens.getWidgets(es);
