@@ -13,7 +13,8 @@ displayName = "Sign Edit Lite"
 description = "Add formatting options to signs."
 authors = "Pintér Gábor <pinter.gabor@gmx.at>"
 displayURL = "https://pintergabor.eu/en/minecraft/mods/signeditlite/"
-logoFile = "${mod_group}.icon.png"
+iconFile = "${mod_group}.icon.png"
+bannerFile = "${mod_group}.icon.png"
 
 # Mixins.
 [[mixins]]
